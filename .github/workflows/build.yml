@@ -192,15 +192,14 @@ jobs:
           zip -r ../AnymeX-Linux.zip ./*
 
       - name: Release Linux Bundle, AppImage & RPM
-        uses: ncipollo/release-action@v1
+        uses: softprops/action-gh-release@v2.2.1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          artifacts: |
+          files: |
             build/linux/x64/release/AnymeX-Linux.zip
             build/linux/x64/release/AnymeX-Linux.AppImage
             build/linux/x64/release/AnymeX-Linux.rpm
           token: ${{ secrets.GITHUB_TOKEN }}
-          allowUpdates: true
-          tag: ${{ github.ref_name }}
 
   build-windows:
     runs-on: windows-latest
